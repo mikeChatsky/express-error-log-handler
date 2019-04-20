@@ -1,0 +1,20 @@
+{
+  "name": "express-error-middleware",
+  "version": "1.0.0",
+  "description": "Express middleware-like error handler",
+  "scripts": {
+  },
+  "keywords": [
+    "express",
+    "log",
+    "error",
+    "handler",
+    "middleware"
+  ],
+  "author": "Mike Chatsky",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
