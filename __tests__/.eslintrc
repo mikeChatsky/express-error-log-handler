@@ -13,6 +13,6 @@
     "jest/valid-expect": "error"
   },
   "env": {
-    "jest": true
+    "jest/globals": true
   }
 }
