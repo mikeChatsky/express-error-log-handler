@@ -2,10 +2,13 @@
   "name": "express-error-middleware",
   "version": "1.0.0",
   "description": "Express middleware-like error handler",
+  "main": "lib/express-error-middleware.js",
+  "module": "lib/express-error-middleware.es.js",
   "scripts": {
     "test": "jest --watchAll --coverage",
     "format": "prettier --write \"src/**/*.js\"",
     "precommit": "lint-staged",
+    "build": "rimraf lib && rollup --config"
   },
   "keywords": [
     "express",
@@ -47,6 +50,8 @@
     "lint-staged": "^8.1.5",
     "mock-req-res": "^1.1.0",
     "prettier": "^1.17.0",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.10.0",
     "sinon": "^7.3.2"
   }
 }

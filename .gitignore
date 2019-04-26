@@ -58,3 +58,6 @@ typings/
 .vscode/*
 .idea/*
 *.sublime-workspace
+
+# Builds
+lib/*
