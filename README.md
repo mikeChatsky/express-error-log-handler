@@ -1,2 +1,2 @@
-# express-error-handler
+# express-error-log-handler
 Express middleware-like error handler

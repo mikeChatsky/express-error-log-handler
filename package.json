@@ -1,6 +1,6 @@
 {
-  "name": "express-error-middleware",
   "version": "1.0.0",
+  "name": "express-error-log-handler",
   "description": "Express middleware-like error handler",
   "main": "lib/express-error-middleware.js",
   "module": "lib/express-error-middleware.es.js",
