@@ -55,9 +55,9 @@ typings/
 .next
 
 # IDE
-.vscode/*
-.idea/*
+.vscode/
+.idea/
 *.sublime-workspace
 
 # Builds
-lib/*
+lib/
