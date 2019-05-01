@@ -5,6 +5,8 @@ import inProduction from 'in-production';
 export default log => (err, req, res, next) => {
   const INTERNAL_SERVER_ERROR = 500;
 
+  const internalMessage = err.message || status[INTERNAL_SERVER_ERROR];
+
   const statusCode =
     err.status ||
     err.statusCode ||
@@ -19,16 +21,20 @@ export default log => (err, req, res, next) => {
     body.stack = err.stack;
   }
 
+  body.message =
+    statusCode > INTERNAL_SERVER_ERROR ? status[statusCode] : internalMessage;
+
   if (!inProduction || statusCode > INTERNAL_SERVER_ERROR) {
     if (log) {
-      log({ err, req, res, statusCode });
+      log({
+        req,
+        res,
+        statusCode,
+        stack: err.stack,
+        message: internalMessage
+      });
     }
   }
-
-  body.message =
-    statusCode > INTERNAL_SERVER_ERROR
-      ? status[statusCode]
-      : err.message || status[INTERNAL_SERVER_ERROR];
 
   res.json(body);
 };
