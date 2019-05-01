@@ -31,6 +31,9 @@
       "git add"
     ]
   },
+  "jest": {
+    "testRegex": "/__tests__/.*\\.(test|spec)\\.[jt]sx?$"
+  },
   "dependencies": {
     "in-production": "^1.0.1",
     "statuses": "^1.5.0"
