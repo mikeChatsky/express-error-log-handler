@@ -36,5 +36,7 @@ export default log => (err, req, res, next) => {
     }
   }
 
+  res.status(statusCode);
+
   res.json(body);
 };
