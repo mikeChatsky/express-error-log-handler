@@ -21,10 +21,9 @@ export default log => (err, req, res, next) => {
     body.stack = err.stack;
   }
 
-  body.message =
-    statusCode > INTERNAL_SERVER_ERROR ? status[statusCode] : internalMessage;
+  body.message = status[statusCode];
 
-  if (!inProduction || statusCode > INTERNAL_SERVER_ERROR) {
+  if (!inProduction || statusCode >= INTERNAL_SERVER_ERROR) {
     if (log) {
       log({
         req,
