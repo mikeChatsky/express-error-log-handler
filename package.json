@@ -8,7 +8,8 @@
     "test": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "format": "prettier --write \"src/**/*.js\"",
-    "build": "rimraf lib && rollup --config"
+    "build": "rimraf lib && rollup --config",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "express",
@@ -19,6 +20,11 @@
   ],
   "author": "Mike Chatsky",
   "license": "MIT",
+  "homepage": "https://github.com/mikeChatsky/express-error-log-handler#express-error-log-handler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeChatsky/express-error-log-handler.git"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
