@@ -1,13 +1,5 @@
-import { mockResponse } from 'mock-req-res';
-
-import { noop } from './utils';
-
+import { noop, customErrorMessage, stackTrace, response } from './utils';
 import errorHandler from '../src';
-
-const INTERNAL_SERVER_ERROR = 500;
-
-const customErrorMessage = 'Some error';
-const stackTrace = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 
 describe('Middleware structure', () => {
   test('handler is a function', () => {
@@ -22,31 +14,23 @@ describe('Middleware structure', () => {
 });
 
 describe('Functionality', () => {
-  describe('Status codes', () => {
-    test('default', () => {
-      const handler = errorHandler(noop);
-      const res = mockResponse();
+  const { res, resetResponse } = response();
 
-      handler(new Error(customErrorMessage), {}, res, noop);
+  beforeEach(() => {
+    resetResponse();
+  });
 
-      expect(
-        res.json.calledWithMatch({ statusCode: INTERNAL_SERVER_ERROR })
-      ).toBeTruthy();
-    });
+  test('Call express response function once', () => {
+    const handler = errorHandler(noop);
 
-    test('Status code specified ', () => {
-      const handler = errorHandler(noop);
-      const res = mockResponse();
-      const statusCode = 404;
+    handler(new Error(customErrorMessage), {}, res, noop);
 
-      handler({ ...new Error(customErrorMessage), statusCode }, {}, res, noop);
-
-      expect(res.json.calledWithMatch({ statusCode })).toBeTruthy();
-    });
+    expect(res.json).toHaveBeenCalledTimes(1);
+    expect(res.status).toHaveBeenCalledTimes(1);
   });
 
   describe('Logging', () => {
-    test('Log with all params given', () => {
+    test('Log with all given params', () => {
       const logger = jest.fn();
       const handler = errorHandler(logger);
 
@@ -57,13 +41,20 @@ describe('Functionality', () => {
       };
 
       const req = {};
-      const res = mockResponse();
 
       const err = { ...new Error(), ...errorDetails };
 
       handler(err, req, res, noop);
 
       expect(logger).toHaveBeenCalledWith({ req, res, ...errorDetails });
+    });
+
+    test('Do not log if no logger passed', () => {
+      const handler = errorHandler();
+
+      expect(() => {
+        handler(new Error(customErrorMessage), {}, res, noop);
+      }).not.toThrow();
     });
   });
 });
