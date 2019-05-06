@@ -1,3 +1,5 @@
+import statuses from 'statuses';
+
 import { noop, customErrorMessage, stackTrace, response } from './utils';
 import errorHandler from '../src';
 
@@ -20,29 +22,47 @@ describe('Functionality', () => {
     resetResponse();
   });
 
-  test('Call express response function once', () => {
+  test('Call express response functions once', () => {
     const handler = errorHandler(noop);
 
-    handler(new Error(customErrorMessage), {}, res, noop);
+    const err = new Error(customErrorMessage);
+    err.statusCode = statuses(500);
+
+    handler(err, {}, res, noop);
 
     expect(res.json).toHaveBeenCalledTimes(1);
     expect(res.status).toHaveBeenCalledTimes(1);
   });
 
   describe('Logging', () => {
+    test('Call logger once', () => {
+      const logger = jest.fn();
+      const handler = errorHandler(logger);
+
+      const err = new Error(customErrorMessage);
+      err.statusCode = statuses(500);
+
+      handler(err, {}, res, noop);
+
+      expect(logger).toHaveBeenCalledTimes(1);
+    });
+
     test('Log with all given params', () => {
       const logger = jest.fn();
       const handler = errorHandler(logger);
 
       const errorDetails = {
-        statusCode: 404,
+        statusCode: statuses(404),
         message: customErrorMessage,
         stack: stackTrace
       };
 
-      const req = {};
+      const err = new Error(errorDetails.message);
 
-      const err = { ...new Error(), ...errorDetails };
+      err.statusCode = errorDetails.statusCode;
+      err.stack = errorDetails.stack;
+
+      const req = {};
 
       handler(err, req, res, noop);
 

@@ -10,7 +10,7 @@ export default log => (err, req, res, next) => {
   const statusCode =
     err.status ||
     err.statusCode ||
-    status[err.message] || // todo: check err.message for null
+    status[err.message] ||
     status(INTERNAL_SERVER_ERROR);
 
   const body = {
