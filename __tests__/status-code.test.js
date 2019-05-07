@@ -30,7 +30,7 @@ describe('Status codes', () => {
     const handler = errorHandler(logger);
     const statusCode = statuses(404);
 
-    const err = new Error(customErrorMessage);
+    const err = new Error();
     err.statusCode = statusCode;
 
     handler(err, {}, res, noop);
@@ -48,6 +48,23 @@ describe('Status codes', () => {
     const statusCode = statuses(403);
 
     handler(new Error(statuses[statusCode]), {}, res, noop);
+
+    const [[jsonArgs]] = res.json.mock.calls;
+    const [[logArgs]] = logger.mock.calls;
+
+    expect(jsonArgs).toMatchObject({ statusCode });
+    expect(res.status).toHaveBeenCalledWith(statusCode);
+    expect(logArgs).toMatchObject({ statusCode });
+  });
+
+  test('Accept `status` alias', () => {
+    const handler = errorHandler(logger);
+    const statusCode = statuses(504);
+
+    const err = new Error();
+    err.status = statusCode;
+
+    handler(err, {}, res, noop);
 
     const [[jsonArgs]] = res.json.mock.calls;
     const [[logArgs]] = logger.mock.calls;
