@@ -1,5 +1,10 @@
 # express-error-log-handler
-[![Build Status](https://travis-ci.org/mikeChatsky/express-error-log-handler.svg?branch=master)](https://travis-ci.org/mikeChatsky/express-error-log-handler) [![Coverage Status](https://coveralls.io/repos/github/mikeChatsky/express-error-log-handler/badge.svg?branch=master)](https://coveralls.io/github/mikeChatsky/express-error-log-handler?branch=master)
+[![Build Status](https://travis-ci.org/mikeChatsky/express-error-log-handler.svg?branch=master)](https://travis-ci.org/mikeChatsky/express-error-log-handler)
+[![Coverage Status](https://coveralls.io/repos/github/mikeChatsky/express-error-log-handler/badge.svg?branch=master)](https://coveralls.io/github/mikeChatsky/express-error-log-handler?branch=master)
+[![David](https://img.shields.io/david/mikechatsky/express-error-log-handler.svg)](https://david-dm.org/mikeChatsky/express-error-log-handler)
+[![David](https://img.shields.io/david/dev/mikechatsky/express-error-log-handler.svg)](https://david-dm.org/mikeChatsky/express-error-log-handler?type=dev)
+[![npm](https://img.shields.io/npm/v/express-error-log-handler.svg)](https://www.npmjs.com/package/express-error-log-handler)
+[![NPM](https://img.shields.io/npm/l/express-error-log-handler.svg)](https://github.com/mikeChatsky/express-error-log-handler/blob/master/LICENSE)
 
 Express middleware-like error handler that takes care of your response status codes and messages.
 
